@@ -1,25 +1,19 @@
-//AWS Configuration
-variable "access_key" {}
-variable "secret_key" {}
-
 variable "region" {
-  default = "eu-west-1"
+  default = "ca-central-1"
 }
 
 // Availability zones for the region
 variable "az1" {
-  default = "eu-west-1a"
+  default = "ca-central-1a"
 }
 
 variable "az2" {
-  default = "eu-west-1b"
+  default = "ca-central-1b"
 }
 
 // IAM role that has proper permission for HA
 // Refer to https://docs.fortinet.com/vm/aws/fortigate/6.2/aws-cookbook/6.2.0/229470/deploying-fortigate-vm-active-passive-ha-aws-between-multiple-zones
-variable "iam" {
-  default = "<AWS IAM Role>"
-}
+variable "iam" {}
 
 // VPC for FortiGate Security VPC
 variable "vpccidr" {
@@ -123,7 +117,7 @@ variable "license_type" {
 // BYOL License format to create FortiGate-VM
 // Provide the license type for FortiGate-VM Instances, either token or file.
 variable "license_format" {
-  default = "token"
+  default = "file"
 }
 
 
@@ -447,8 +441,8 @@ variable "bootstrap-fgtvm2" {
 }
 
 // license file for the fgt
-variable "license" {
+variable "licenses" {
   // Change to your own byol license file, license.lic
-  type    = string
-  default = "license.lic"
+  type    = list(string)
+  default = [ "license-azA.lic", "license-azB.lic"]
 }
