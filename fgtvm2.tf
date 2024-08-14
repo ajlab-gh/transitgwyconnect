@@ -50,24 +50,14 @@ resource "aws_instance" "fgtvm2" {
   instance_type     = var.size
   availability_zone = var.az2
   key_name          = var.keyname
-  user_data = chomp(templatefile("${var.bootstrap-fgtvm2}", {
-    type            = "${var.license_type}"
-    license_file    = "${var.licenses[1]}"
-    format          = "${var.license_format}"
-    adminsport      = "${var.adminsport}"
-    port1_ip        = "${var.fgt2port1ip[0]}"
-    port1_mask      = "${cidrnetmask(var.publiccidraz2)}"
-    port2_ip        = "${var.fgt2port2ip[0]}"
-    port2_mask      = "${cidrnetmask(var.privatecidraz2)}"
-    port3_ip        = "${var.fgt2port3ip[0]}"
-    port3_mask      = "${cidrnetmask(var.hasynccidraz2)}"
-    active_peerip   = "${var.fgtport3ip[0]}"
-    mgmt_gateway_ip = cidrhost(var.hasynccidraz2, 1)
-    gateway         = cidrhost(var.privatecidraz2, 1)
-    defaultgwy      = cidrhost(var.publiccidraz2, 1)
-  }))
+  user_data = jsonencode({
+    bucket  = aws_s3_bucket.s3_bucket.id,
+    region  = "ca-central-1",
+    license = "/license-azB.lic",
+    config = "/fgtvm2.conf"
+  })
 
-  iam_instance_profile = var.iam
+  iam_instance_profile = aws_iam_instance_profile.fortigate.id
 
   root_block_device {
     volume_type = "standard"
