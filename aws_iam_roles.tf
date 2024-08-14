@@ -25,6 +25,17 @@ resource "aws_iam_role_policy" "fortigate-iam_role_policy" {
   "Statement": [
     {
       "Effect": "Allow",
+      "Action": [
+        "ec2:Describe*",
+        "ec2:AssociateAddress",
+        "ec2:AssignPrivateIpAddresses",
+        "ec2:UnassignPrivateIpAddresses",
+        "ec2:ReplaceRoute"
+        ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
       "Action": ["s3:ListBucket"],
       "Resource": ["arn:aws:s3:::${aws_s3_bucket.s3_bucket.id}"]
     },
