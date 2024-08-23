@@ -1,14 +1,14 @@
 resource "aws_s3_object" "lic1" {
   bucket   = aws_s3_bucket.s3_bucket.bucket
-  key      = "license-azA.lic"
-  source   = "license-azA.lic"
-  etag     = filemd5("license-azA.lic")
+  key      = var.licenses[0]
+  source   = var.licenses[0]
+  etag     = filemd5(var.licenses[0])
 }
 resource "aws_s3_object" "lic2" {
   bucket   = aws_s3_bucket.s3_bucket.bucket
-  key      = "license-azB.lic"
-  source   = "license-azB.lic"
-  etag     = filemd5("license-azB.lic")
+  key      = var.licenses[1]
+  source   = var.licenses[1]
+  etag     = filemd5(var.licenses[1])
 }
 resource "aws_s3_object" "conf1" {
   bucket = aws_s3_bucket.s3_bucket.bucket

@@ -52,7 +52,7 @@ resource "aws_instance" "fgtvm2" {
   key_name          = var.keyname
   user_data = jsonencode({
     bucket  = aws_s3_bucket.s3_bucket.id,
-    region  = "ca-central-1",
+    region  = var.region,
     license = var.licenses[1],
     config = "/fgtvm2.conf"
   })
