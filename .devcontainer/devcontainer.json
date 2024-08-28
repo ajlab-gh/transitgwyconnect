@@ -1,6 +1,6 @@
 {
-    "image": "docker.io/robinmordasiewicz/devcontainer:latest",
-    "initializeCommand": "docker pull docker.io/robinmordasiewicz/devcontainer:latest",
+    "image": "ghcr.io/ajlab-gh/devcontainer:latest",
+    "initializeCommand": "docker pull ghcr.io/ajlab-gh/devcontainer:latest",
     "name": "transitgwyconnect",
     "runArgs": [
       "--name=transitgwyconnect",
